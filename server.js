@@ -3,6 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
+const bodyParser = require('body-parser').urlencoded({ extended: true });
 
 const app = express();
 const PORT = process.env.PORT;
@@ -23,13 +24,16 @@ app.get('/tasks', (req, res) => {
 });
 
 app.get('*', (req, res) => res.redirect(CLIENT_URL));
+
+app.post('/tasks/add', bodyParser, (req, res) => {
+  // TODO: insert the new task into the database,
+  // pass the results back to the frontend,
+  // and catch any errors
+
+});
+
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // PORT=3000
 // CLIENT_URL=http://localhost:8080
-
-// Mac:
 // DATABASE_URL=postgres://localhost:5432/task_app
-
-// Windows:
-// DATABASE_URL=postgres://USER:PASSWORD@localhost:5432/task_app
