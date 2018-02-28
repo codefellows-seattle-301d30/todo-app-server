@@ -30,6 +30,21 @@ app.post('/tasks/add', bodyParser, (req, res) => {
   // pass the results back to the frontend,
   // and catch any errors
 
+  // Destructuring
+  let {title, description, category, contact, status} = req.body;
+
+  // These 5 lines of code are doing the same thing as the destructuring syntax above
+  let title = req.body.title;
+  let description = req.body.description;
+  let category = req.body.category;
+  let contact = req.body.contact;
+  let status = req.body.status;
+
+  client.query(`
+    INSERT INTO tasks(title, description, category, contact, status) VALUES ($1, $2, $3, $4, $5);`, [title, description, category, contact, status])
+      .then(() => res.sendStatus(201))
+      .catch(console.error);
+
 });
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
